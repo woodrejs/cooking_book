@@ -1,7 +1,7 @@
 import React from "react";
 
 const App = () => {
-  return <div>cooking book</div>;
+  return <main>app</main>;
 };
 
 export default App;
