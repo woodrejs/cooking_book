@@ -1,47 +1,13 @@
 import React from "react";
 import { Field, Fields, reduxForm } from "redux-form";
+import {
+  textField,
+  numberField,
+  selectField,
+  radioField,
+  durationFields,
+} from "../utils/reduxFormInputs";
 //uuid???
-
-const textField = ({ input, label, meta: { error, touched } }) => (
-  <div>
-    <label>{label}</label>
-    <input {...input} type="text" />
-    {touched && error && <span>{error}</span>}
-  </div>
-);
-const numberField = ({ input, float = false, label, meta: { error, touched } }) => (
-  <div>
-    <label>{label}</label>
-    <input {...input} type="number" step={float ? "0.1" : "1"} />
-    {touched && error && <span>{error}</span>}
-  </div>
-);
-const selectField = ({ input, label, children, meta: { error, touched } }) => (
-  <div>
-    <label>{label}</label>
-    <select {...input}>{children}</select>
-    {touched && error && <span>{error}</span>}
-  </div>
-);
-const radioField = ({ input, label, meta: { error, touched } }) => (
-  <div>
-    <label>{label}</label>
-    <input {...input} type="radio" value={label} />
-    {touched && error && <span>{error}</span>}
-  </div>
-);
-const durationFields = (fields) =>
-  fields.names.map((name) => {
-    const { input, touched, error } = fields[name];
-
-    return (
-      <div key={name}>
-        <label>{name}</label>
-        <input {...input} type="number" />
-        {touched && error && <span>{error}</span>}
-      </div>
-    );
-  });
 
 let DishForm = ({ handleSubmit }) => {
   return (
