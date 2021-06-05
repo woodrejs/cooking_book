@@ -6,8 +6,10 @@ const DurationField = ({ input, meta, label }) => {
   const [minutes, setMinutes] = useState("00");
   const [seconds, setSeconds] = useState("00");
 
+  const { error, touched, dispatch } = meta;
+
   const INPUTS = [
-    { id: 0, name: "h", max: "any", value: hours, action: setHours },
+    { id: 0, name: "h", max: "99", value: hours, action: setHours },
     { id: 1, name: "m", max: "59", value: minutes, action: setMinutes },
     { id: 2, name: "s", max: "59", value: seconds, action: setSeconds },
   ];
@@ -20,7 +22,7 @@ const DurationField = ({ input, meta, label }) => {
 
   useEffect(() => {
     //Saves the value to the field & dispatch
-    meta.dispatch(change(meta.form, input.name, `${hours}:${minutes}:${seconds}`, true));
+    dispatch(change(meta.form, input.name, `${hours}:${minutes}:${seconds}`, true));
   }, [hours, minutes, seconds]);
 
   return (
@@ -39,6 +41,8 @@ const DurationField = ({ input, meta, label }) => {
           />
         </div>
       ))}
+
+      <span>{touched && error && <span>{error}</span>}</span>
     </div>
   );
 };

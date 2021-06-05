@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { change } from "redux-form";
 
 const ScaleField = ({ input, meta }) => {
-  const [value, setValue] = useState(5);
+  const [value, setValue] = useState(null);
+  const { error, touched, dispatch } = meta;
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -11,7 +12,7 @@ const ScaleField = ({ input, meta }) => {
 
   useEffect(() => {
     //Saves the value to the field & dispatch
-    meta.dispatch(change(meta.form, input.name, value, true));
+    dispatch(change(meta.form, input.name, value, true));
   }, [value]);
 
   return (
@@ -24,11 +25,12 @@ const ScaleField = ({ input, meta }) => {
             name="spiciness_scale"
             type="radio"
             value={name}
-            checked={value === name ? true : false}
+            //checked={value === name ? true : false}
             onChange={(e) => handleChange(e)}
           />
         </div>
       ))}
+      <span>{touched && error && <span>{error}</span>}</span>
     </div>
   );
 };
