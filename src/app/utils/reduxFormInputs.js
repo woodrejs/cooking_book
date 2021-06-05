@@ -24,10 +24,3 @@ export const selectField = ({ input, label, children, meta: { error, touched } }
     {touched && error && <span>{error}</span>}
   </div>
 );
-export const radioField = ({ input, label, meta: { error, touched } }) => (
-  <div>
-    <label>{label}</label>
-    <input {...input} type="radio" value={label} />
-    {touched && error && <span>{error}</span>}
-  </div>
-);

@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Field, reduxForm, Form, SubmissionError } from "redux-form";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 //components
 import DurationField from "../components/DurationField";
 import ScaleField from "../components/ScaleField";
+import TypeField from "../components/TypeField";
 //utils
 import { useSelector, useDispatch } from "react-redux";
 import { setProgress } from "../redux/fetchSlice";
-import {
-  textField,
-  numberField,
-  selectField,
-  radioField,
-} from "../utils/reduxFormInputs";
+import { textField, numberField } from "../utils/reduxFormInputs";
 //uuid???
 
 const validation = (data) => {
@@ -46,22 +42,27 @@ const validation = (data) => {
     }
   }
 
-  if (!spiciness_scale) {
-    errors.spiciness_scale = "Required";
-  } else if (spiciness_scale < 1 || spiciness_scale > 10) {
-    errors.spiciness_scale = "Out of scale";
-  }
-
-  if (!no_of_slices) {
-    errors.no_of_slices = "Required";
-  }
-
-  if (!diameter) {
-    errors.diameter = "Required";
-  }
-
-  if (!slices_of_bread) {
-    errors.slices_of_bread = "Required";
+  switch (type) {
+    case "pizza":
+      if (!no_of_slices) {
+        errors.no_of_slices = "Required";
+      }
+      if (!diameter) {
+        errors.diameter = "Required";
+      }
+      break;
+    case "soup":
+      if (!spiciness_scale) {
+        errors.spiciness_scale = "Required";
+      } else if (spiciness_scale < 1 || spiciness_scale > 10) {
+        errors.spiciness_scale = "Out of scale";
+      }
+      break;
+    case "sandwich":
+      if (!slices_of_bread) {
+        errors.slices_of_bread = "Required";
+      }
+      break;
   }
 
   //check if there are some errors in 'errors' object
@@ -72,8 +73,28 @@ const validation = (data) => {
 
   return isValid;
 };
+const formatData = (data) => {
+  const { name, type, preparation_time } = data;
+  const { no_of_slices, diameter, slices_of_bread, spiciness_scale } = data;
+  let formatedData = {};
+
+  switch (type) {
+    case "pizza":
+      formatedData = { name, type, preparation_time, no_of_slices, diameter };
+      break;
+    case "soup":
+      formatedData = { name, type, preparation_time, spiciness_scale };
+      break;
+    case "sandwich":
+      formatedData = { name, type, preparation_time, slices_of_bread };
+      break;
+  }
+
+  return formatedData;
+};
 
 let DishForm = ({ handleSubmit }) => {
+  const [dishType, setDishType] = useState(null);
   const fetchProgress = useSelector((state) => state.fetch.progress);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -88,8 +109,6 @@ let DishForm = ({ handleSubmit }) => {
       case "failed":
         history.push("/failed");
         break;
-      default:
-        break;
     }
   }, [fetchProgress]);
 
@@ -97,16 +116,18 @@ let DishForm = ({ handleSubmit }) => {
     const isValid = validation(value);
 
     if (isValid) {
-      // dispatch(setProgress("inProgress"));
-      // try {
-      //   const URL = process.env.REACT_APP_DB_URL;
-      //   const data = value;
-      //   const resp = await axios.post(URL, data);
-      //   console.log(resp);
-      //   dispatch(setProgress("success"));
-      // } catch (error) {
-      //   dispatch(setProgress("failed"));
-      // }
+      dispatch(setProgress("inProgress"));
+      try {
+        //format data object depending what dish type is set
+        const data = formatData(value);
+        const URL = process.env.REACT_APP_DB_URL;
+
+        // const resp = await axios.post(URL, data);
+        // console.log(resp);
+        dispatch(setProgress("success"));
+      } catch (error) {
+        dispatch(setProgress("failed"));
+      }
     }
   };
 
@@ -121,34 +142,58 @@ let DishForm = ({ handleSubmit }) => {
           component={DurationField}
         />
 
-        <Field label="type" name="type" component={selectField}>
-          <option />
-          <option value="pizza">pizza</option>
-          <option value="soup">soup</option>
-          <option value="sandwich">sandwich</option>
-        </Field>
-
         <Field
-          label="no_of_slices"
-          name="no_of_slices"
-          component={numberField}
-          parse={handleParse}
-        />
-        <Field
-          label="diameter"
-          name="diameter"
-          component={numberField}
-          float
-          parse={handleParse}
-        />
-        <Field
-          label="slices_of_bread"
-          name="slices_of_bread"
-          component={numberField}
-          parse={handleParse}
+          name="type"
+          label="type"
+          type="select"
+          component={TypeField}
+          parse={(value) => {
+            setDishType(value);
+            return value;
+          }}
         />
 
-        <Field label="spiciness_scale" name="spiciness_scale" component={ScaleField} />
+        {(() => {
+          switch (dishType) {
+            case "pizza":
+              return (
+                <>
+                  <Field
+                    label="no_of_slices"
+                    name="no_of_slices"
+                    component={numberField}
+                    parse={handleParse}
+                  />
+                  <Field
+                    label="diameter"
+                    name="diameter"
+                    component={numberField}
+                    float
+                    parse={handleParse}
+                  />
+                </>
+              );
+
+            case "soup":
+              return (
+                <Field
+                  label="spiciness_scale"
+                  name="spiciness_scale"
+                  component={ScaleField}
+                />
+              );
+
+            case "sandwich":
+              return (
+                <Field
+                  label="slices_of_bread"
+                  name="slices_of_bread"
+                  component={numberField}
+                  parse={handleParse}
+                />
+              );
+          }
+        })()}
 
         <button type="submit">Submit</button>
       </Form>
