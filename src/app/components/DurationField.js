@@ -21,7 +21,7 @@ const DurationField = ({ input, meta, label }) => {
   };
 
   useEffect(() => {
-    //Saves the value to the field & dispatch
+    //Saves the value to the field
     dispatch(change(meta.form, input.name, `${hours}:${minutes}:${seconds}`, true));
   }, [hours, minutes, seconds]);
 

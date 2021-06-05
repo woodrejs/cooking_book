@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { change } from "redux-form";
+//uuid??
 
-const ScaleField = ({ input, meta, label }) => {
+const ScaleField = ({ input, meta }) => {
+  const [value, setValue] = useState(null);
   const { error, touched, dispatch } = meta;
+  const INPUTS = Array.from({ length: 10 }, (v, k) => k + 1);
 
   const handleChange = (e) => {
-    //Saves the value to the field & dispatch
     const value = e.target.value;
-    dispatch(change(meta.form, input.name, +value, true));
+    setValue(+value);
   };
+
+  useEffect(() => {
+    //Saves the value to the field
+    value && dispatch(change(meta.form, input.name, value, true));
+  }, [value]);
 
   return (
     <div>
-      <label>{label}</label>
-      {Array.from({ length: 10 }, (v, k) => k + 1).map((name) => (
+      <label>spiciness_scale</label>
+
+      {INPUTS.map((name) => (
         <div key={name}>
           <label>{name}</label>
           <input
             name="spiciness_scale"
             type="radio"
             value={name}
+            checked={value === name ? true : false}
             onChange={(e) => handleChange(e)}
           />
         </div>

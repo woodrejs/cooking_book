@@ -7,10 +7,13 @@ import { setProgress } from "../redux/fetchSlice";
 import tick_icon from "../assets/icons/tick_icon.svg";
 
 const Success = () => {
-  const fetchProgress = useSelector((state) => state.fetch.progress);
+  // const fetchProgress = useSelector((state) => state.fetch.progress);
+  const fetchData = useSelector((state) => state.fetch.data);
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(setProgress(null)), []);
+  //tmp
+  console.log(fetchData);
 
   return (
     <section>
@@ -18,10 +21,14 @@ const Success = () => {
         <Link to="/form">add next dish</Link>
       </button>
       <h1>
-        added <span>correctly</span>
+        <span>{fetchData.name ?? null}</span> added <span>correctly</span>
       </h1>
       <img src={tick_icon} alt="tick_icon" />
     </section>
   );
 };
 export default Success;
+/*
+ 
+  
+  */

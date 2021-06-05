@@ -7,7 +7,7 @@ import { setProgress } from "../redux/fetchSlice";
 import cross_icon from "../assets/icons/cross_icon.svg";
 
 const Failed = () => {
-  const fetchProgress = useSelector((state) => state.fetch.progress);
+  //const fetchProgress = useSelector((state) => state.fetch.progress);
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(setProgress(null)), []);

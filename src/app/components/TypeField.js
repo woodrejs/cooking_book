@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const TypeField = ({ input, label, meta }) => {
-  const { error, touched, dispatch } = meta;
+const TypeField = ({ input, label, meta: { error, touched } }) => {
   return (
     <div>
       <label>{label}</label>

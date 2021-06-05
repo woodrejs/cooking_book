@@ -6,10 +6,11 @@ import axios from "axios";
 import DurationField from "../components/DurationField";
 import ScaleField from "../components/ScaleField";
 import TypeField from "../components/TypeField";
+import NumberField from "../components/NumberField";
+import TextField from "../components/TextField";
 //utils
 import { useSelector, useDispatch } from "react-redux";
-import { setProgress } from "../redux/fetchSlice";
-import { textField, numberField } from "../utils/reduxFormInputs";
+import { setProgress, setData } from "../redux/fetchSlice";
 //uuid???
 
 const validation = (data) => {
@@ -96,10 +97,15 @@ const formatData = (data) => {
 let DishForm = ({ handleSubmit }) => {
   const [dishType, setDishType] = useState(null);
   const fetchProgress = useSelector((state) => state.fetch.progress);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleParse = (value) => +value;
+  const handleParseNumber = (value) => +value;
+  const handleParseSelect = (value) => {
+    setDishType(value);
+    return value;
+  };
 
   useEffect(() => {
     switch (fetchProgress) {
@@ -113,6 +119,8 @@ let DishForm = ({ handleSubmit }) => {
   }, [fetchProgress]);
 
   const submit = async (value) => {
+    //console.log(value);
+
     const isValid = validation(value);
 
     if (isValid) {
@@ -121,9 +129,11 @@ let DishForm = ({ handleSubmit }) => {
         //format data object depending what dish type is set
         const data = formatData(value);
         const URL = process.env.REACT_APP_DB_URL;
+        const resp = await axios.post(URL, data);
 
-        // const resp = await axios.post(URL, data);
-        // console.log(resp);
+        //valid data???
+        //console.log(resp.data);
+        dispatch(setData(resp.data));
         dispatch(setProgress("success"));
       } catch (error) {
         dispatch(setProgress("failed"));
@@ -134,24 +144,16 @@ let DishForm = ({ handleSubmit }) => {
   return (
     <section>
       <Form onSubmit={handleSubmit(submit)}>
-        <Field label="name" name="name" component={textField} />
-
+        {/* core fields */}
+        <Field label="name" name="name" component={TextField} />
+        <Field name="type" label="type" component={TypeField} parse={handleParseSelect} />
         <Field
           label="preparation_time"
           name="preparation_time"
           component={DurationField}
         />
 
-        <Field
-          name="type"
-          label="type"
-          type="select"
-          component={TypeField}
-          parse={(value) => {
-            setDishType(value);
-            return value;
-          }}
-        />
+        {/* conditionally fields */}
 
         {(() => {
           switch (dishType) {
@@ -161,15 +163,15 @@ let DishForm = ({ handleSubmit }) => {
                   <Field
                     label="no_of_slices"
                     name="no_of_slices"
-                    component={numberField}
-                    parse={handleParse}
+                    component={NumberField}
+                    parse={handleParseNumber}
                   />
                   <Field
                     label="diameter"
                     name="diameter"
-                    component={numberField}
+                    component={NumberField}
                     float
-                    parse={handleParse}
+                    parse={handleParseNumber}
                   />
                 </>
               );
@@ -188,8 +190,8 @@ let DishForm = ({ handleSubmit }) => {
                 <Field
                   label="slices_of_bread"
                   name="slices_of_bread"
-                  component={numberField}
-                  parse={handleParse}
+                  component={NumberField}
+                  parse={handleParseNumber}
                 />
               );
           }
