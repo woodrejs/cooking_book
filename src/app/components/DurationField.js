@@ -19,14 +19,13 @@ const DurationField = ({ input, meta, label }) => {
   };
 
   useEffect(() => {
-    //set merged value in input
+    //Saves the value to the field & dispatch
     meta.dispatch(change(meta.form, input.name, `${hours}:${minutes}:${seconds}`, true));
   }, [hours, minutes, seconds]);
 
   return (
     <div>
       <label>{label}</label>
-      <input {...input} type="text" hidden />
 
       {INPUTS.map(({ id, name, max, value, action }) => (
         <div key={id}>

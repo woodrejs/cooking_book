@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 //components
 import DurationField from "../components/DurationField";
+import ScaleField from "../components/ScaleField";
 //utils
 import { useSelector, useDispatch } from "react-redux";
 import { setProgress } from "../redux/fetchSlice";
@@ -38,18 +39,18 @@ let DishForm = ({ handleSubmit }) => {
   const submit = async (value) => {
     console.log(value);
 
-    dispatch(setProgress("inProgress"));
+    // dispatch(setProgress("inProgress"));
 
-    try {
-      const URL = process.env.REACT_APP_DB_URL;
-      const data = value;
+    // try {
+    //   const URL = process.env.REACT_APP_DB_URL;
+    //   const data = value;
 
-      const resp = await axios.post(URL, data);
-      console.log(resp);
-      dispatch(setProgress("success"));
-    } catch (error) {
-      dispatch(setProgress("failed"));
-    }
+    //   const resp = await axios.post(URL, data);
+    //   console.log(resp);
+    //   dispatch(setProgress("success"));
+    // } catch (error) {
+    //   dispatch(setProgress("failed"));
+    // }
   };
 
   return (
@@ -90,18 +91,7 @@ let DishForm = ({ handleSubmit }) => {
           parse={handleParse}
         />
 
-        <div>
-          <label>spiciness_scale</label>
-          {Array.from({ length: 10 }, (v, k) => k + 1).map((name) => (
-            <Field
-              label={name}
-              name="spiciness_scale"
-              component={radioField}
-              key={name}
-              parse={handleParse}
-            />
-          ))}
-        </div>
+        <Field label="spiciness_scale" name="spiciness_scale" component={ScaleField} />
 
         <button type="submit">Submit</button>
       </Form>
