@@ -1,7 +1,7 @@
 export const textField = ({ input, label, meta: { error, touched } }) => (
   <div>
     <label>{label}</label>
-    <input {...input} type="text" />
+    <input {...input} type="text" placeholder="sss" />
     {touched && error && <span>{error}</span>}
   </div>
 );
@@ -13,7 +13,7 @@ export const numberField = ({
 }) => (
   <div>
     <label>{label}</label>
-    <input {...input} type="number" step={float ? "0.1" : "1"} />
+    <input {...input} type="number" step={float ? "0.1" : "1"} min="0" />
     {touched && error && <span>{error}</span>}
   </div>
 );
@@ -31,15 +31,3 @@ export const radioField = ({ input, label, meta: { error, touched } }) => (
     {touched && error && <span>{error}</span>}
   </div>
 );
-export const durationFields = (fields) =>
-  fields.names.map((name) => {
-    const { input, touched, error } = fields[name];
-
-    return (
-      <div key={name}>
-        <label>{name}</label>
-        <input {...input} type="number" />
-        {touched && error && <span>{error}</span>}
-      </div>
-    );
-  });

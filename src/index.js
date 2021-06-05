@@ -4,6 +4,9 @@ import { Provider } from "react-redux";
 import store from "./app/store";
 import App from "./app/App";
 
+//env
+require("dotenv").config();
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

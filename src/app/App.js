@@ -1,37 +1,22 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
+//pages
+import Home from "./pages/Home";
 import DishForm from "./pages/DishForm";
-import axios from "axios";
-
-const changePreparationTimeFormat = (arr) => {
-  const tmpArr = arr.map((val) => (+val < 10 ? `0${val}` : val));
-  return tmpArr.join(":");
-};
+import Success from "./pages/Success";
+import Failed from "./pages/Failed";
 
 const App = () => {
-  const handleSubmit = async (val) => {
-    const url = "https://frosty-wood-6558.getsandbox.com:443/dishes";
-    const data = {
-      name: val.name,
-      type: val.type,
-      preparation_time: changePreparationTimeFormat([val.h, val.m, val.s]),
-      diameter: +val.diameter,
-      no_of_slices: +val.no_of_slices,
-      slices_of_bread: +val.slices_of_bread,
-      spiciness_scale: +val.spiciness_scale,
-    };
-
-    try {
-      const resp = await axios.post(url, data);
-      //validation
-      console.log(resp.data);
-    } catch (error) {
-      //add custom error
-      throw new Error("Request error", 400, error);
-    }
-  };
   return (
     <main>
-      <DishForm onSubmit={handleSubmit} />
+      <Router>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/form" component={DishForm} />
+          <Route path="/success" component={Success} />
+          <Route path="/failed" component={Failed} />
+        </Switch>
+      </Router>
     </main>
   );
 };
