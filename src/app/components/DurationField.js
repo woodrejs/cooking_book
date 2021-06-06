@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { change } from "redux-form";
 
-const DurationField = ({ input, meta, label }) => {
+const DurationField = ({ input: { name }, meta, label }) => {
+  const { error, touched, dispatch, form } = meta;
+
   const [hours, setHours] = useState("00");
   const [minutes, setMinutes] = useState("00");
   const [seconds, setSeconds] = useState("00");
 
-  const { error, touched, dispatch } = meta;
-
+  //INPUTS: list of inputs to render
   const INPUTS = [
     { id: 0, name: "h", max: "99", value: hours, action: setHours },
     { id: 1, name: "m", max: "59", value: minutes, action: setMinutes },
@@ -22,8 +23,8 @@ const DurationField = ({ input, meta, label }) => {
 
   useEffect(() => {
     //Saves the value to the field
-    dispatch(change(meta.form, input.name, `${hours}:${minutes}:${seconds}`, true));
-  }, [hours, minutes, seconds]);
+    dispatch(change(form, name, `${hours}:${minutes}:${seconds}`, true));
+  }, [hours, minutes, seconds, name, form]);
 
   return (
     <div>

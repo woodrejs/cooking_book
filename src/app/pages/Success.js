@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+//components
+import CustomButton from "../components/CustomButton";
 //utils
 import { useSelector, useDispatch } from "react-redux";
 import { setProgress } from "../redux/fetchSlice";
@@ -15,26 +16,31 @@ const Success = () => {
 
   return (
     <section>
-      <button>
-        <Link to="/form">add next dish</Link>
-      </button>
-      <h1>
-        <span>{fetchData.name ?? null}</span> added <span>correctly</span>
-      </h1>
-      <div>
-        {DATA.map(({ name, value }) => (
-          <div>
-            <span>{name}:</span>
-            <span>{value}</span>
-          </div>
-        ))}
-      </div>
+      <CustomButton to="/form" text="add next dish" />
+
+      <article>
+        <h1>
+          <span>{fetchData.name ?? null}</span>
+          <span>added correctly</span>
+        </h1>
+
+        <div>
+          {DATA.map(({ name, value }) => (
+            <div>
+              <span children={name} />
+              <span children={value} />
+            </div>
+          ))}
+        </div>
+      </article>
+
       <img src={tick_icon} alt="tick_icon" />
     </section>
   );
 };
 export default Success;
 
+//functions
 const formatData = (data) => {
   const dataArr = [];
 
@@ -42,7 +48,7 @@ const formatData = (data) => {
     for (const key in data) {
       if (Object.hasOwnProperty.call(data, key)) {
         if (key !== "id" && key !== "name") {
-          dataArr.push({ name: key.replace("_", " "), value: data[key] });
+          dataArr.push({ name: key.replaceAll("_", " "), value: data[key] });
         }
       }
     }

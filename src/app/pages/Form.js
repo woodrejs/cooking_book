@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Field, reduxForm, Form, SubmissionError } from "redux-form";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 //components
 import DurationField from "../components/DurationField";
@@ -8,11 +8,125 @@ import ScaleField from "../components/ScaleField";
 import TypeField from "../components/TypeField";
 import NumberField from "../components/NumberField";
 import TextField from "../components/TextField";
+import CustomButton from "../components/CustomButton";
 //utils
 import { useSelector, useDispatch } from "react-redux";
 import { setProgress, setData } from "../redux/fetchSlice";
-//uuid???
 
+let DishForm = ({ handleSubmit }) => {
+  const [dishType, setDishType] = useState(null);
+  const fetchProgress = useSelector((state) => state.fetch.progress);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleParseNumber = (value) => +value;
+  const handleParseSelect = (value) => {
+    setDishType(value);
+    return value;
+  };
+  const handleSubmitForm = async (value) => {
+    const isValid = validation(value);
+
+    if (isValid) {
+      dispatch(setProgress("inProgress"));
+      try {
+        //'formatData': format data object depending what dish type is set
+        const data = formatData(value);
+        const URL = process.env.REACT_APP_DB_URL;
+        const resp = await axios.post(URL, data);
+
+        dispatch(setData(resp.data));
+        dispatch(setProgress("success"));
+      } catch (error) {
+        dispatch(setProgress("failed"));
+      }
+    }
+  };
+
+  useEffect(() => {
+    switch (fetchProgress) {
+      case "success":
+        history.push("/success");
+        break;
+      case "failed":
+        history.push("/failed");
+        break;
+      default:
+        break;
+    }
+  }, [fetchProgress, history]);
+
+  return (
+    <section>
+      <Form onSubmit={handleSubmit(handleSubmitForm)}>
+        {/* core fields */}
+        <Field label="name" name="name" component={TextField} />
+        <Field name="type" label="type" component={TypeField} parse={handleParseSelect} />
+        <Field
+          label="preparation_time"
+          name="preparation_time"
+          component={DurationField}
+        />
+
+        {/* conditionally fields */}
+        {(() => {
+          switch (dishType) {
+            case "soup":
+              return (
+                <Field
+                  label="spiciness_scale"
+                  name="spiciness_scale"
+                  component={ScaleField}
+                />
+              );
+
+            case "sandwich":
+              return (
+                <Field
+                  label="slices_of_bread"
+                  name="slices_of_bread"
+                  component={NumberField}
+                  parse={handleParseNumber}
+                />
+              );
+            case "pizza":
+              return (
+                <>
+                  <Field
+                    label="no_of_slices"
+                    name="no_of_slices"
+                    component={NumberField}
+                    parse={handleParseNumber}
+                  />
+                  <Field
+                    label="diameter"
+                    name="diameter"
+                    component={NumberField}
+                    float
+                    parse={handleParseNumber}
+                  />
+                </>
+              );
+            default:
+              break;
+          }
+        })()}
+
+        <button type="submit">Submit</button>
+      </Form>
+
+      <CustomButton to="/" text="back" />
+    </section>
+  );
+};
+
+DishForm = reduxForm({
+  form: "dish",
+})(DishForm);
+
+export default DishForm;
+
+//functions
 const validation = (data) => {
   const { name, type, preparation_time } = data;
   const { no_of_slices, diameter, slices_of_bread, spiciness_scale } = data;
@@ -64,6 +178,8 @@ const validation = (data) => {
         errors.slices_of_bread = "Required";
       }
       break;
+    default:
+      break;
   }
 
   //check if there are some errors in 'errors' object
@@ -89,125 +205,9 @@ const formatData = (data) => {
     case "sandwich":
       formatedData = { name, type, preparation_time, slices_of_bread };
       break;
+    default:
+      break;
   }
 
   return formatedData;
 };
-
-let DishForm = ({ handleSubmit }) => {
-  const [dishType, setDishType] = useState(null);
-  const fetchProgress = useSelector((state) => state.fetch.progress);
-
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  const handleParseNumber = (value) => +value;
-  const handleParseSelect = (value) => {
-    setDishType(value);
-    return value;
-  };
-
-  useEffect(() => {
-    switch (fetchProgress) {
-      case "success":
-        history.push("/success");
-        break;
-      case "failed":
-        history.push("/failed");
-        break;
-    }
-  }, [fetchProgress]);
-
-  const submit = async (value) => {
-    //console.log(value);
-
-    const isValid = validation(value);
-
-    if (isValid) {
-      dispatch(setProgress("inProgress"));
-      try {
-        //format data object depending what dish type is set
-        const data = formatData(value);
-        const URL = process.env.REACT_APP_DB_URL;
-        const resp = await axios.post(URL, data);
-
-        //valid data???
-        //console.log(resp.data);
-        dispatch(setData(resp.data));
-        dispatch(setProgress("success"));
-      } catch (error) {
-        dispatch(setProgress("failed"));
-      }
-    }
-  };
-
-  return (
-    <section>
-      <Form onSubmit={handleSubmit(submit)}>
-        {/* core fields */}
-        <Field label="name" name="name" component={TextField} />
-        <Field name="type" label="type" component={TypeField} parse={handleParseSelect} />
-        <Field
-          label="preparation_time"
-          name="preparation_time"
-          component={DurationField}
-        />
-
-        {/* conditionally fields */}
-
-        {(() => {
-          switch (dishType) {
-            case "pizza":
-              return (
-                <>
-                  <Field
-                    label="no_of_slices"
-                    name="no_of_slices"
-                    component={NumberField}
-                    parse={handleParseNumber}
-                  />
-                  <Field
-                    label="diameter"
-                    name="diameter"
-                    component={NumberField}
-                    float
-                    parse={handleParseNumber}
-                  />
-                </>
-              );
-
-            case "soup":
-              return (
-                <Field
-                  label="spiciness_scale"
-                  name="spiciness_scale"
-                  component={ScaleField}
-                />
-              );
-
-            case "sandwich":
-              return (
-                <Field
-                  label="slices_of_bread"
-                  name="slices_of_bread"
-                  component={NumberField}
-                  parse={handleParseNumber}
-                />
-              );
-          }
-        })()}
-
-        <button type="submit">Submit</button>
-      </Form>
-      <button>
-        <Link to="/">Start</Link>
-      </button>
-    </section>
-  );
-};
-
-DishForm = reduxForm({
-  form: "dish",
-})(DishForm);
-
-export default DishForm;

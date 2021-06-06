@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+//components
+import CustomButton from "../components/CustomButton";
 
 const Home = () => {
   return (
     <section>
       <div>
         <h1>Home</h1>
-        <button>
-          <Link to="/form">Start</Link>
-        </button>
+        <CustomButton to="/form" text="add product" />
       </div>
     </section>
   );
