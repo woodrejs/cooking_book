@@ -16,7 +16,7 @@ const Success = () => {
   useEffect(() => dispatch(setProgress(null)), []);
 
   return (
-    <section>
+    <section className="section success">
       <CustomButton to="/form" text="add next dish" />
 
       <article>

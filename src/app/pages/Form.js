@@ -60,13 +60,21 @@ let DishForm = ({ handleSubmit }) => {
   }, [fetchProgress, history]);
 
   return (
-    <section>
-      <Form onSubmit={handleSubmit(handleSubmitForm)}>
+    <section className="section form">
+      {/* <CustomButton to="/" text="back" /> */}
+
+      <Form onSubmit={handleSubmit(handleSubmitForm)} className="form__content">
         {/* core fields */}
-        <Field label="name" name="name" component={TextField} />
+        <h2 className="form__content__header">add product</h2>
+        <Field
+          label="name"
+          name="name"
+          component={TextField}
+          className="form__content__field--name"
+        />
         <Field name="type" label="type" component={TypeField} parse={handleParseSelect} />
         <Field
-          label="preparation_time"
+          label="preparation time"
           name="preparation_time"
           component={DurationField}
         />
@@ -77,7 +85,7 @@ let DishForm = ({ handleSubmit }) => {
             case "soup":
               return (
                 <Field
-                  label="spiciness_scale"
+                  label="spiciness scale"
                   name="spiciness_scale"
                   component={ScaleField}
                 />
@@ -86,7 +94,7 @@ let DishForm = ({ handleSubmit }) => {
             case "sandwich":
               return (
                 <Field
-                  label="slices_of_bread"
+                  label="slices of bread"
                   name="slices_of_bread"
                   component={NumberField}
                   parse={handleParseNumber}
@@ -96,7 +104,7 @@ let DishForm = ({ handleSubmit }) => {
               return (
                 <>
                   <Field
-                    label="no_of_slices"
+                    label="number of slices"
                     name="no_of_slices"
                     component={NumberField}
                     parse={handleParseNumber}
@@ -114,11 +122,13 @@ let DishForm = ({ handleSubmit }) => {
               break;
           }
         })()}
-
-        <button type="submit">Submit</button>
+        <div className="form__content__buttonBox">
+          <button className="form__content__buttonBox__button" type="submit">
+            Submit
+          </button>
+        </div>
       </Form>
 
-      <CustomButton to="/" text="back" />
       <ProgressBar progressStage={progressStage} />
     </section>
   );

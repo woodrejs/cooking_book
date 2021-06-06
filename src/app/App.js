@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Form from "./pages/Form";
 import Success from "./pages/Success";
 import Failed from "./pages/Failed";
+//style
+import "./style/index.scss";
 
 const App = () => {
   return (

@@ -5,9 +5,10 @@ import ProgressBar from "../components/ProgressBar";
 
 const Home = () => {
   return (
-    <section>
-      <div>
-        <h1>Home</h1>
+    <section className="section home">
+      <div className="home__content">
+        <h1 className="home__content__header">COOK BOOK</h1>
+
         <CustomButton to="/form" text="add product" />
       </div>
       <ProgressBar progressStage={0} />

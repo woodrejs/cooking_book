@@ -1,0 +1,269 @@
+//variable
+$first-color: #0a94f1;
+$secound-color: #fcfcfc;
+$third-color: #000000;
+$fourth-color: #f0f0f0;
+$fifth-color: #f7f7f7;
+
+//fonts
+@font-face {
+  font-family: "Montserrate";
+  src: url("../assets/fonts/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrate";
+  src: url("../assets/fonts/Montserrat-Medium.ttf") format("truetype");
+  font-weight: 700;
+  font-style: medium;
+}
+@font-face {
+  font-family: "Montserrate";
+  src: url("../assets/fonts/Montserrat-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: black;
+}
+
+//general class
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrate";
+  color: $third-color;
+}
+main {
+  background-color: $secound-color;
+  width: 100%;
+  min-height: 100vh;
+}
+.section {
+  background-color: $secound-color;
+  margin: 0 auto;
+  height: 100vh;
+  max-width: 1366px;
+  width: 100%;
+  padding: 10px;
+  //flex
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+//errors
+.error {
+  font-size: 12px;
+  color: red;
+}
+//customButton
+.customButton {
+  padding: 15px 40px;
+  background-color: $first-color;
+  border: none;
+
+  &__link {
+    color: $secound-color;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+  }
+}
+//progressBar
+.progressBar {
+  position: fixed;
+  bottom: 0;
+  background-color: $fourth-color;
+  width: 100%;
+  padding: 1px 0;
+  min-height: 10px;
+
+  &__box {
+    width: 100%;
+    display: flex;
+
+    &__stage {
+      background-color: $first-color;
+      margin: 0 1px;
+      height: 10px;
+      width: 33.2%;
+    }
+  }
+}
+//home
+.home {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__header {
+      font-size: 72px;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding-bottom: 50px;
+    }
+  }
+}
+//form
+.form {
+  &__content {
+    width: 760px;
+    min-height: 500px;
+    padding: 50px;
+    background-color: #ffffff;
+    border: 1px solid $fifth-color;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 11vh) 14vh 11vh 12vh;
+    column-gap: 20px;
+
+    &__header {
+      font-size: 25px;
+      font-weight: 700;
+      text-transform: uppercase;
+      grid-area: 1 / 1 / 2 / 3;
+      //margin-bottom: 80px;
+    }
+
+    &__buttonBox {
+      grid-area: 5 / 1 / 6 / 3;
+      display: flex;
+      align-items: flex-end;
+      //margin-top: 40px;
+      &__button {
+        padding: 15px 40px;
+        background-color: $first-color;
+        border: none;
+        //text
+        color: $secound-color;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+//inputs
+/////////////////////////////////////
+input[type="number"] ::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
+/////////////////////////////////////
+.input {
+  //padding-bottom: 50px;
+
+  &__label {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 700;
+
+    &--sm {
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+  &__box {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 5px 0;
+  }
+  &__input {
+    border: 1px solid $fifth-color;
+    height: 31px;
+    background-color: #f4f9fc;
+    padding: 5px 10px;
+  }
+  &__arrow {
+    cursor: pointer;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    bottom: 5px;
+
+    &--decr {
+      transform: rotateZ(90deg);
+      right: 35px;
+    }
+    &--incr {
+      transform: rotateZ(-90deg);
+      right: 10px;
+    }
+  }
+}
+.numberInput {
+  &__box {
+    position: relative;
+    &__input {
+      width: 100%;
+    }
+  }
+}
+.typeInput {
+  &__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: "";
+    background-image: url("../assets/icons/select_icon.svg");
+    background-position: 98%;
+    background-repeat: no-repeat;
+    background-size: 21px;
+  }
+  &::-ms-expand {
+    display: none; /* Hide the default arrow in Internet Explorer 10 and Internet Explorer 11 */
+  }
+}
+.duartionInput {
+  grid-area: 3 / 1 / 4 / 3;
+
+  &__box {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &__inputBox {
+      width: 32%;
+      position: relative;
+
+      &__input {
+        width: 100%;
+      }
+    }
+  }
+}
+.scaleInput {
+  grid-area: 4 / 1 / 5 / 3;
+
+  &__box {
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 500px;
+    margin-top: 15px;
+
+    &__inputBox {
+      display: flex;
+      flex-direction: column;
+
+      &__label {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+
+/*
+@media screen and (max-width: 991px) tablets
+@media screen and (max-width: 767px) phone landscape
+@media screen and (max-width: 479px) phone
+*/
