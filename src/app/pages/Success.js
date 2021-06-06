@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 //components
 import CustomButton from "../components/CustomButton";
+import ProgressBar from "../components/ProgressBar";
 //utils
 import { useSelector, useDispatch } from "react-redux";
 import { setProgress } from "../redux/fetchSlice";
@@ -35,6 +36,7 @@ const Success = () => {
       </article>
 
       <img src={tick_icon} alt="tick_icon" />
+      <ProgressBar progressStage={3} />
     </section>
   );
 };

@@ -9,12 +9,14 @@ import TypeField from "../components/TypeField";
 import NumberField from "../components/NumberField";
 import TextField from "../components/TextField";
 import CustomButton from "../components/CustomButton";
+import ProgressBar from "../components/ProgressBar";
 //utils
 import { useSelector, useDispatch } from "react-redux";
 import { setProgress, setData } from "../redux/fetchSlice";
 
 let DishForm = ({ handleSubmit }) => {
   const [dishType, setDishType] = useState(null);
+  const [progressStage, setProgressStage] = useState(1);
   const fetchProgress = useSelector((state) => state.fetch.progress);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -22,6 +24,7 @@ let DishForm = ({ handleSubmit }) => {
   const handleParseNumber = (value) => +value;
   const handleParseSelect = (value) => {
     setDishType(value);
+    setProgressStage(2);
     return value;
   };
   const handleSubmitForm = async (value) => {
@@ -116,6 +119,7 @@ let DishForm = ({ handleSubmit }) => {
       </Form>
 
       <CustomButton to="/" text="back" />
+      <ProgressBar progressStage={progressStage} />
     </section>
   );
 };

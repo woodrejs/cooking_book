@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 //components
 import CustomButton from "../components/CustomButton";
+import ProgressBar from "../components/ProgressBar";
 //utils
 import { useDispatch } from "react-redux";
 import { setProgress } from "../redux/fetchSlice";
@@ -22,6 +23,7 @@ const Failed = () => {
         reprehenderit debitis tempore ullam magnam et repudiandae officiis.
       </p>
       <img src={cross_icon} alt="cross_icon" />
+      <ProgressBar progressStage={3} />
     </section>
   );
 };
