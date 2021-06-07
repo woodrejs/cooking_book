@@ -14,15 +14,19 @@ const Failed = () => {
   useEffect(() => dispatch(setProgress(null)), []);
 
   return (
-    <section>
-      <CustomButton to="/form" text="try again" />
+    <section className="section failed">
+      <div className="failed__backButton">
+        <CustomButton to="/form" text="try again" />
+      </div>
 
-      <h1>error</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint id esse nisi
-        reprehenderit debitis tempore ullam magnam et repudiandae officiis.
-      </p>
-      <img src={cross_icon} alt="cross_icon" />
+      <div className="failed__content">
+        <h1 className="failed__content__header">error</h1>
+        <p className="failed__content__text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint id esse nisi
+          reprehenderit debitis tempore ullam magnam et repudiandae officiis.
+        </p>
+        <img className="failed__content__icon" src={cross_icon} alt="cross_icon" />
+      </div>
       <ProgressBar progressStage={3} />
     </section>
   );

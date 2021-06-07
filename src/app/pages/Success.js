@@ -17,25 +17,23 @@ const Success = () => {
 
   return (
     <section className="section success">
-      <CustomButton to="/form" text="add next dish" />
+      <article className="success__content">
+        <h1 className="success__content__header">added correctly</h1>
 
-      <article>
-        <h1>
-          <span>{fetchData.name ?? null}</span>
-          <span>added correctly</span>
-        </h1>
-
-        <div>
+        <div className="success__content__respBox">
           {DATA.map(({ name, value }) => (
-            <div>
-              <span children={name} />
-              <span children={value} />
+            <div className="success__content__respBox__resp">
+              <p className="success__content__respBox__resp__name" children={name} />
+              <p className="success__content__respBox__resp__value" children={value} />
             </div>
           ))}
         </div>
-      </article>
 
-      <img src={tick_icon} alt="tick_icon" />
+        <img className="success__content__icon" src={tick_icon} alt="tick_icon" />
+      </article>
+      <div className="success__backButton">
+        <CustomButton to="/form" text="add next dish" />
+      </div>
       <ProgressBar progressStage={3} />
     </section>
   );
@@ -49,7 +47,7 @@ const formatData = (data) => {
   if (data) {
     for (const key in data) {
       if (Object.hasOwnProperty.call(data, key)) {
-        if (key !== "id" && key !== "name") {
+        if (key !== "id") {
           dataArr.push({ name: key.replaceAll("_", " "), value: data[key] });
         }
       }

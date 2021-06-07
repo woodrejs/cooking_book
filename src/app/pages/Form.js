@@ -61,8 +61,6 @@ let DishForm = ({ handleSubmit }) => {
 
   return (
     <section className="section form">
-      {/* <CustomButton to="/" text="back" /> */}
-
       <Form onSubmit={handleSubmit(handleSubmitForm)} className="form__content">
         {/* core fields */}
         <h2 className="form__content__header">add product</h2>
@@ -144,7 +142,7 @@ export default DishForm;
 const validation = (data) => {
   const { name, type, preparation_time } = data;
   const { no_of_slices, diameter, slices_of_bread, spiciness_scale } = data;
-
+  console.log(data);
   let errors = {};
   let isValid = true;
 

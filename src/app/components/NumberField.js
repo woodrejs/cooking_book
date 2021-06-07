@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { change } from "redux-form";
 //assets
 import arrowIcon from "../assets/icons/arrow_icon.svg";
 
-const NumberField = ({ input, float = false, label, meta: { error, touched } }) => {
+const NumberField = ({
+  input,
+  input: { name },
+  float = false,
+  label,
+  meta: { error, touched, dispatch, form },
+}) => {
   const [inputValue, setInputValue] = useState(0);
 
   const handleClickIncrement = () => {
@@ -17,6 +24,11 @@ const NumberField = ({ input, float = false, label, meta: { error, touched } }) 
     const value = e.target.value;
     setInputValue(value);
   };
+
+  useEffect(() => {
+    //Saves the value to the field
+    dispatch(change(form, name, +inputValue, true));
+  }, [inputValue]);
 
   return (
     <div className="input numberInput">
