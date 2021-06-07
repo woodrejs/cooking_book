@@ -1,0 +1,22 @@
+@import "./variables.scss";
+
+.progressBar {
+  position: fixed;
+  bottom: 0;
+  background-color: $fourth-color;
+  width: 100%;
+  padding: 1px 0;
+  min-height: 10px;
+
+  &__box {
+    width: 100%;
+    display: flex;
+
+    &__stage {
+      background-color: $first-color;
+      margin: 0 1px;
+      height: 10px;
+      width: 33.2%;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import "./variables.scss";
+
+.customButton {
+  padding: 15px 40px;
+  background-color: $first-color;
+  border: none;
+
+  &__link {
+    color: $secound-color;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+  }
+}

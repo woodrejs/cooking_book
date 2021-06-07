@@ -1,0 +1,14 @@
+@import "./variables.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrate";
+  color: $third-color;
+}
+main {
+  background-color: $secound-color;
+  width: 100%;
+  min-height: 100vh;
+}

@@ -1,0 +1,53 @@
+@import "./variables.scss";
+
+.input {
+  margin-bottom: 30px;
+
+  &__label {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 700;
+
+    &--sm {
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+  &__box {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 5px 0;
+  }
+  &__input {
+    border: 1px solid $fifth-color;
+    height: 31px;
+    background-color: #f4f9fc;
+    padding: 5px 10px;
+  }
+  &__arrow {
+    cursor: pointer;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    bottom: 5px;
+
+    &--decr {
+      transform: rotateZ(90deg);
+      right: 35px;
+    }
+    &--incr {
+      transform: rotateZ(-90deg);
+      right: 10px;
+    }
+  }
+}
+input[type="number"] ::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
