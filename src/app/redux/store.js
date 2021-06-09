@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { reducer as formReducer } from "redux-form";
-import fetchReducer from "./fetchSlice";
+import postReducer from "./postSlice";
 
 export default configureStore({
   reducer: {
     form: formReducer,
-    fetch: fetchReducer,
+    post: postReducer,
   },
 });

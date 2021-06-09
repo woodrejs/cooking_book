@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorMessage from "../ErrorMessage";
 
 const TextField = ({ input, label, meta: { error, touched } }) => {
   return (
@@ -7,7 +8,7 @@ const TextField = ({ input, label, meta: { error, touched } }) => {
       <div className="input__box">
         <input {...input} type="text" className="input__input" />
       </div>
-      {touched && error && <span className="error">{error}</span>}
+      <ErrorMessage touched={touched} error={error} />
     </div>
   );
 };

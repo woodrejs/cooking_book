@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { change } from "redux-form";
-//assets
-import arrowIcon from "../assets/icons/arrow_icon.svg";
+import InputButton from "../InputButton";
+import ErrorMessage from "../ErrorMessage";
 
 const NumberField = ({
   input,
@@ -43,20 +43,10 @@ const NumberField = ({
           onChange={(e) => handleChange(e)}
           value={inputValue}
         />
-        <img
-          className="input__arrow input__arrow--decr"
-          src={arrowIcon}
-          alt="decrementArrow_icon"
-          onClick={handleClickDecrement}
-        />
-        <img
-          className="input__arrow input__arrow--incr"
-          src={arrowIcon}
-          alt="incrementArrow_icon"
-          onClick={handleClickIncrement}
-        />
+        <InputButton handler={handleClickDecrement} decr />
+        <InputButton handler={handleClickIncrement} />
       </div>
-      {touched && error && <span className="error">{error}</span>}
+      <ErrorMessage touched={touched} error={error} />
     </div>
   );
 };

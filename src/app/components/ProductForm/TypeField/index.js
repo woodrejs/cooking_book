@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorMessage from "../ErrorMessage";
 
 const TypeField = ({ input, label, meta: { error, touched } }) => {
   return (
@@ -12,7 +13,7 @@ const TypeField = ({ input, label, meta: { error, touched } }) => {
           <option value="sandwich">sandwich</option>
         </select>
       </div>
-      <span>{touched && error && <span className="error">{error}</span>}</span>
+      <ErrorMessage touched={touched} error={error} />
     </div>
   );
 };
