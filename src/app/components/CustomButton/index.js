@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CustomButton = ({ to, text, className }) => {
-  console.log(className);
   return (
     <div className={className}>
       <button className="customButton">

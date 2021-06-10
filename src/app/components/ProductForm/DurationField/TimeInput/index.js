@@ -1,24 +1,11 @@
 import React from "react";
 import InputButton from "../../InputButton";
+import { incrementVal, decrementVal, formatVal } from "./index.utils";
 
 const TimeInput = ({ name, value, max = "59", action }) => {
-  const handleChange = (e) => {
-    let value = e.target.value;
-    value = +value < 10 ? `0${value}` : value;
-    action(value);
-  };
-  const handleClickIncrement = () => {
-    let result = +value;
-    result = +value >= max ? 0 : result + 1;
-    result = result < 10 ? `0${result}` : result;
-    action(result);
-  };
-  const handleClickDecrement = () => {
-    let result = +value;
-    result = +value >= 1 ? result - 1 : max;
-    result = result < 10 ? `0${result}` : result;
-    action(result);
-  };
+  const handleClickIncrement = () => action(incrementVal(value, max));
+  const handleClickDecrement = () => action(decrementVal(value, max));
+  const handleChange = () => action(formatVal(value));
 
   return (
     <div className="duartionInput__box__inputBox">

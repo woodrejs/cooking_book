@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -11,16 +11,10 @@ import { isValid, prepareData } from "./index.utils";
 import { setResponse } from "../../redux/postSlice";
 import ConditionallyFields from "./ConditionallyFields";
 
-let ProductForm = ({ handleSubmit, handleProgressBar }) => {
-  const [type, setType] = useState(null);
+let ProductForm = ({ handleSubmit }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleParse = (value) => {
-    setType(value);
-    handleProgressBar();
-    return value;
-  };
   const handleSubmitForm = async (value) => {
     if (isValid(value)) {
       try {
@@ -30,7 +24,6 @@ let ProductForm = ({ handleSubmit, handleProgressBar }) => {
         const resp = await axios.post(URL, data);
 
         dispatch(setResponse(resp.data));
-
         history.push("/success");
       } catch (error) {
         history.push("/failed");
@@ -41,9 +34,9 @@ let ProductForm = ({ handleSubmit, handleProgressBar }) => {
   return (
     <Form onSubmit={handleSubmit(handleSubmitForm)} className="form__content">
       <Field name="name" label="name" component={TextField} />
-      <Field name="type" label="type" component={TypeField} parse={handleParse} />
+      <Field name="type" label="type" component={TypeField} />
       <Field name="preparation_time" label="preparation" component={DurationField} />
-      <ConditionallyFields type={type} />
+      <ConditionallyFields />
       <SubmitButton />
     </Form>
   );

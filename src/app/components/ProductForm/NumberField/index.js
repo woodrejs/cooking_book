@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { change } from "redux-form";
 import InputButton from "../InputButton";
 import ErrorMessage from "../ErrorMessage";
+import { incrementVal, decrementVal } from "./index.utils";
 
 const NumberField = ({
   input,
@@ -12,22 +13,13 @@ const NumberField = ({
 }) => {
   const [inputValue, setInputValue] = useState(0);
 
-  const handleClickIncrement = () => {
-    const result = float ? (+inputValue + 0.1).toFixed(1) : +inputValue + 1;
-    setInputValue(result);
-  };
-  const handleClickDecrement = () => {
-    const result = float ? (+inputValue - 0.1).toFixed(1) : +inputValue - 1;
-    inputValue > 0 && setInputValue(result);
-  };
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-  };
+  const handleClickIncrement = () => setInputValue(incrementVal(inputValue, float));
+  const handleClickDecrement = () => setInputValue(decrementVal(inputValue, float));
+  const handleChange = (e) => setInputValue(+e.target.value);
 
   useEffect(() => {
     //Saves the value to the field
-    dispatch(change(form, name, +inputValue, true));
+    dispatch(change(form, name, inputValue, true));
   }, [inputValue]);
 
   return (
@@ -38,9 +30,8 @@ const NumberField = ({
           className="input__input numberInput__box__input"
           {...input}
           type="number"
-          step={float ? "0.1" : "1"}
           min="0"
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={inputValue}
         />
         <InputButton handler={handleClickDecrement} decr />

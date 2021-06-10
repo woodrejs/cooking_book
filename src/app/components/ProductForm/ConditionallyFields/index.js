@@ -1,42 +1,52 @@
 import React from "react";
-import { Field } from "redux-form";
+import { connect } from "react-redux";
+import { Field, formValueSelector } from "redux-form";
 import ScaleField from "../ScaleField";
 import NumberField from "../NumberField";
 
 const ConditionallyFields = ({ type }) => {
-  const handleParse = (value) => +value;
-
   return (
     <>
-      {type === "soup" && (
-        <Field label="spiciness scale" name="spiciness_scale" component={ScaleField} />
-      )}
-      {type === "sandwich" && (
-        <Field
-          label="slices of bread"
-          name="slices_of_bread"
-          component={NumberField}
-          parse={handleParse}
-        />
-      )}
-      {type === "pizza" && (
-        <>
-          <Field
-            label="number of slices"
-            name="no_of_slices"
-            component={NumberField}
-            parse={handleParse}
-          />
-          <Field
-            label="diameter"
-            name="diameter"
-            component={NumberField}
-            float
-            parse={handleParse}
-          />
-        </>
-      )}
+      {(() => {
+        switch (type) {
+          case "soup":
+            return (
+              <Field
+                label="spiciness scale"
+                name="spiciness_scale"
+                component={ScaleField}
+              />
+            );
+          case "sandwich":
+            return (
+              <Field
+                label="slices of bread"
+                name="slices_of_bread"
+                component={NumberField}
+              />
+            );
+          case "pizza":
+            return (
+              <>
+                <Field label="diameter" name="diameter" component={NumberField} float />
+                <Field
+                  label="number of slices"
+                  name="no_of_slices"
+                  component={NumberField}
+                />
+              </>
+            );
+
+          default:
+            break;
+        }
+      })()}
     </>
   );
 };
-export default ConditionallyFields;
+
+const selector = formValueSelector("products");
+
+export default connect((state) => ({
+  type: selector(state, "type"),
+}))(ConditionallyFields);
