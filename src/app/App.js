@@ -1,13 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-//pages
 import Home from "./pages/Home";
 import Panel from "./pages/Panel";
 import Success from "./pages/Success";
 import Failed from "./pages/Failed";
-//style
 import "./style/index.scss";
-import ProgressBar from "./components/ProgressBar";
 
 const App = () => {
   return (

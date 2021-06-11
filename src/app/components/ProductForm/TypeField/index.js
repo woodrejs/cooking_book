@@ -1,12 +1,14 @@
 import React from "react";
 import ErrorMessage from "../ErrorMessage";
+import CustomLabel from "../CustomLabel";
+import "./index.scss";
 
 const TypeField = ({ input, label, meta: { error, touched } }) => {
   return (
-    <div className="input typeInput">
-      <label className="input__label">{label}</label>
-      <div className="input__box">
-        <select {...input} className="input__input typeInput__input">
+    <div className="typeField">
+      <CustomLabel name={label} />
+      <div className="typeField__box">
+        <select {...input} className="typeField__box__input">
           <option />
           <option value="pizza">pizza</option>
           <option value="soup">soup</option>

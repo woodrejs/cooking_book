@@ -2,6 +2,7 @@ import React from "react";
 import DATA from "./index.data";
 import CustomButton from "../../components/CustomButton";
 import ProgressBar from "../../components/ProgressBar";
+import "./index.scss";
 
 //?? progrressbar
 const Home = () => {

@@ -1,0 +1,24 @@
+@import "../../style/variables.scss";
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin-bottom: 40px;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    &__text {
+      text-transform: capitalize;
+
+      &--name {
+        margin-right: 20px;
+      }
+      &--value {
+        margin-left: 20px;
+      }
+    }
+  }
+}

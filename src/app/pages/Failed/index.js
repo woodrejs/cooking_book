@@ -3,6 +3,7 @@ import CustomButton from "../../components/CustomButton";
 import ProgressBar from "../../components/ProgressBar";
 import cross_icon from "../../assets/icons/cross_icon.svg";
 import DATA from "./index.data";
+import "./index.scss";
 
 const Failed = () => {
   return (

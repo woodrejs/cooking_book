@@ -1,0 +1,52 @@
+@import "../../style/variables.scss";
+
+.success {
+  &__backButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__header {
+      margin-bottom: 40px;
+      font-size: 50px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-align: center;
+    }
+    &__icon {
+      width: 110px;
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .success {
+    display: flex;
+    flex-direction: column;
+    &__backButton {
+      position: unset;
+      margin-top: 30px;
+    }
+    &__content {
+      &__header {
+        font-size: 40px;
+      }
+      &__icon {
+        width: 90px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 479px) {
+  .success {
+    &__content {
+      &__header {
+        font-size: 40px;
+      }
+    }
+  }
+}

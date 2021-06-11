@@ -1,14 +1,21 @@
 import React from "react";
 import { formatData } from "./index.utils";
+import "./index.scss";
 
 const ProductInfo = ({ data }) => {
   return (
-    <div className="success__content__respBox">
+    <div className="productInfo">
       {data &&
         formatData(data).map(({ name, value }, index) => (
-          <div key={index} className="success__content__respBox__resp">
-            <p className="success__content__respBox__resp__name" children={name} />
-            <p className="success__content__respBox__resp__value" children={value} />
+          <div key={index} className="productInfo__content">
+            <p
+              className="productInfo__content__text productInfo__content__text--name"
+              children={name}
+            />
+            <p
+              className="productInfo__content__text productInfo__content__text--value"
+              children={value}
+            />
           </div>
         ))}
     </div>

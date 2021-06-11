@@ -1,0 +1,9 @@
+@import "../../../../style//variables.scss";
+
+.radioInput {
+  display: flex;
+  flex-direction: column;
+  &__label {
+    margin-top: 5px;
+  }
+}

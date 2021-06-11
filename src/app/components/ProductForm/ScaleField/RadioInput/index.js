@@ -1,8 +1,9 @@
 import React from "react";
+import "./index.scss";
 
 const RadioInput = ({ data: { name, value, label }, currVal, handler }) => {
   return (
-    <div key={name} className="scaleInput__box__inputBox">
+    <div key={name} className="radioInput">
       <input
         type="radio"
         name={name}
@@ -10,7 +11,7 @@ const RadioInput = ({ data: { name, value, label }, currVal, handler }) => {
         checked={currVal === value ? true : false}
         onChange={handler}
       />
-      <label className="scaleInput__box__inputBox__label">{label}</label>
+      <label className="radioInput__label">{label}</label>
     </div>
   );
 };

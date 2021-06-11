@@ -1,0 +1,23 @@
+@import "../../../style/variables.scss";
+
+.textField {
+  margin-bottom: 30px;
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 5px 0;
+
+    &__input {
+      border: 1px solid $fifth-color;
+      height: 31px;
+      background-color: #f4f9fc;
+      padding: 5px 10px;
+    }
+  }
+}
+@media screen and (max-width: 479px) {
+  .textField {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+}

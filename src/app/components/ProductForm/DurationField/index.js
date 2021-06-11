@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { change } from "redux-form";
 import TimeInput from "./TimeInput";
 import ErrorMessage from "../ErrorMessage";
+import CustomLabel from "../CustomLabel";
+import "./index.scss";
 
 const DurationField = ({
   input: { name },
@@ -18,9 +20,9 @@ const DurationField = ({
   }, [hours, minutes, seconds, name, form]);
 
   return (
-    <div className="input duartionInput">
-      <label className="input__label">{label}</label>
-      <div className="input_box duartionInput__box">
+    <div className="duartionField">
+      <CustomLabel name={label} />
+      <div className="duartionField__box">
         <TimeInput name="h" value={hours} action={setHours} max="99" />
         <TimeInput name="m" value={minutes} action={setMinutes} />
         <TimeInput name="s" value={seconds} action={setSeconds} />

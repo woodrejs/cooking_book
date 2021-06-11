@@ -1,0 +1,31 @@
+@import "../../../style/variables.scss";
+
+.submitButton {
+  grid-area: 5 / 1 / 6 / 3;
+  display: flex;
+  align-items: flex-end;
+
+  &__button {
+    padding: 15px 40px;
+    margin-top: 80px;
+    background-color: $first-color;
+    border: none;
+
+    &__text {
+      color: $secound-color;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+}
+@media screen and (max-width: 479px) {
+  .submitButton {
+    grid-area: 7 / 1 / 8 / 2;
+    &__button {
+      width: 100%;
+    }
+  }
+}

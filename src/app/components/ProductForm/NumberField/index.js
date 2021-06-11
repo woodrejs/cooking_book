@@ -3,6 +3,8 @@ import { change } from "redux-form";
 import InputButton from "../InputButton";
 import ErrorMessage from "../ErrorMessage";
 import { incrementVal, decrementVal } from "./index.utils";
+import CustomLabel from "../CustomLabel";
+import "./index.scss";
 
 const NumberField = ({
   input,
@@ -22,12 +24,13 @@ const NumberField = ({
     dispatch(change(form, name, inputValue, true));
   }, [inputValue]);
 
+  //?? min
   return (
-    <div className="input numberInput">
-      <label className="input__label">{label}</label>
-      <div className="input__box numberInput__box">
+    <div className="numberField">
+      <CustomLabel name={label} />
+      <div className="numberField__box">
         <input
-          className="input__input numberInput__box__input"
+          className="numberField__box__input"
           {...input}
           type="number"
           min="0"

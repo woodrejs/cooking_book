@@ -5,6 +5,7 @@ import ProductInfo from "../../components/ProductInfo";
 import { useSelector } from "react-redux";
 import tick_icon from "../../assets/icons/tick_icon.svg";
 import DATA from "./index.data";
+import "./index.scss";
 
 const Success = () => {
   const response = useSelector(({ post }) => post.response);
