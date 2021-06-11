@@ -26,7 +26,7 @@ export const isValid = (data) => {
     const test = pattern.test(preparation_time);
 
     if (!test) {
-      errors.preparation_time = "Wrong format";
+      errors.preparation_time = "Required";
     }
   }
 

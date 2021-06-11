@@ -10,9 +10,9 @@ const DurationField = ({
   meta: { error, touched, dispatch, form },
   label,
 }) => {
-  const [hours, setHours] = useState("00");
-  const [minutes, setMinutes] = useState("00");
-  const [seconds, setSeconds] = useState("00");
+  const [hours, setHours] = useState(null);
+  const [minutes, setMinutes] = useState(null);
+  const [seconds, setSeconds] = useState(null);
 
   useEffect(() => {
     //Saves the value to the field

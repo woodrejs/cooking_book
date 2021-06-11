@@ -7,18 +7,16 @@ import "./index.scss";
 const TimeInput = ({ name, value, max = "59", action }) => {
   const handleClickIncrement = () => action(incrementVal(value, max));
   const handleClickDecrement = () => action(decrementVal(value, max));
-  const handleChange = () => action(formatVal(value));
+  const handleChange = (e) => action(formatVal(e.target.value));
 
-  //?? min
   return (
     <div className="timeInput">
       <CustomLabel name={name} sm />
       <input
-        className="input__input timeInput__input"
+        className="timeInput__input"
         type="number"
-        min="0"
-        max={max}
         value={value}
+        placeholder="00"
         onChange={handleChange}
       />
       <InputButton handler={handleClickDecrement} decr />

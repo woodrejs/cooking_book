@@ -12,8 +12,8 @@
     max-width: 500px;
   }
 }
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 769px) {
   .scaleField {
-    grid-area: unset;
+    grid-area: 4 / 1 / 5 / 2;
   }
 }

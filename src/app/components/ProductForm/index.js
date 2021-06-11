@@ -8,8 +8,9 @@ import TextField from "./TextField";
 import SubmitButton from "./SubmitButton";
 import DurationField from "./DurationField";
 import { isValid, prepareData } from "./index.utils";
-import { setResponse } from "../../redux/postSlice";
+import { setResponse, setInProgress } from "../../redux/postSlice";
 import ConditionallyFields from "./ConditionallyFields";
+import "./index.scss";
 
 let ProductForm = ({ handleSubmit }) => {
   const history = useHistory();
@@ -17,6 +18,7 @@ let ProductForm = ({ handleSubmit }) => {
 
   const handleSubmitForm = async (value) => {
     if (isValid(value)) {
+      dispatch(setInProgress(true));
       try {
         //'prepareData': prepare data object depending what dish type is set
         const data = prepareData(value);
@@ -24,15 +26,17 @@ let ProductForm = ({ handleSubmit }) => {
         const resp = await axios.post(URL, data);
 
         dispatch(setResponse(resp.data));
+        dispatch(setInProgress(false));
         history.push("/success");
       } catch (error) {
+        dispatch(setInProgress(false));
         history.push("/failed");
       }
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit(handleSubmitForm)} className="form__content">
+    <Form className="productForm" onSubmit={handleSubmit(handleSubmitForm)}>
       <Field name="name" label="name" component={TextField} />
       <Field name="type" label="type" component={TypeField} />
       <Field name="preparation_time" label="preparation" component={DurationField} />

@@ -2,11 +2,15 @@
 
 .panel {
   &__content {
+    background-color: #ffffff;
+    border: 1px solid $fifth-color;
+    padding: 50px;
+    max-width: 98%;
+
     &__header {
       font-size: 25px;
       font-weight: 700;
       text-transform: uppercase;
-      grid-area: 1 / 1 / 2 / 3;
       margin-bottom: 80px;
     }
   }
@@ -14,22 +18,9 @@
 @media screen and (max-width: 767px) {
   .panel {
     &__content {
+      max-width: 100%;
       width: 100%;
-    }
-  }
-}
-@media screen and (max-width: 479px) {
-  .panel {
-    &__content {
-      padding: 40px 20px;
-      width: 100%;
-      grid-template-rows: repeat(7, auto);
-      grid-template-columns: 1fr;
-      column-gap: 0;
-
-      &__header {
-        grid-area: 1 / 1 / 2 / 2;
-      }
+      padding: 25px;
     }
   }
 }

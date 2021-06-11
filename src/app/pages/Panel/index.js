@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { formValueSelector } from "redux-form";
-import DATA from "./index.data";
 import ProductForm from "../../components/ProductForm";
 import ProgressBar from "../../components/ProgressBar";
+import Spinner from "../../components/Spinner";
+import DATA from "./index.data";
 import "./index.scss";
 
 const Panel = ({ type }) => {
@@ -14,6 +15,7 @@ const Panel = ({ type }) => {
         <ProductForm />
       </article>
 
+      <Spinner />
       <ProgressBar progressStage={type ? 2 : 1} />
     </section>
   );

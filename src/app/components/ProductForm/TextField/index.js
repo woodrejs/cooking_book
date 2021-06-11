@@ -5,7 +5,7 @@ import "./index.scss";
 
 const TextField = ({ input, label, meta: { error, touched } }) => {
   return (
-    <div className="input textField">
+    <div className="textField">
       <CustomLabel name={label} />
       <div className="textField__box">
         <input {...input} type="text" className="textField__box__input" />

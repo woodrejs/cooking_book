@@ -14,7 +14,6 @@ const ScaleField = ({
   const [currVal, setCurrValue] = useState(null);
 
   const handleChange = (e) => setCurrValue(+e.target.value);
-
   const renderRadioInputs = () =>
     INPUTS.map((input) => (
       <RadioInput key={input.id} data={input} currVal={currVal} handler={handleChange} />

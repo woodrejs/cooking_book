@@ -33,9 +33,7 @@ const NumberField = ({
           className="numberField__box__input"
           {...input}
           type="number"
-          min="0"
           onChange={handleChange}
-          value={inputValue}
         />
         <InputButton handler={handleClickDecrement} decr />
         <InputButton handler={handleClickIncrement} />
